@@ -1,23 +1,22 @@
 package br.com.clothing.storage.console;
 
+import br.com.clothing.storage.comuns.vos.StorageItem;
 import br.com.clothing.storage.console.estadoConsole.EnumEstadoConsole;
 import br.com.clothing.storage.console.estadoConsole.MaquinaEstadoConsole;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 
 public class Main {
 
     public static MaquinaEstadoConsole estadoConsole;
+    public ArrayList<StorageItem> storageItems = new ArrayList<>();
 
-    public static void main(String[] args) {
-
-        estadoConsole = EnumEstadoConsole.CADASTRAR.getEstadoMaquina();
-        estadoConsole = EnumEstadoConsole.EDITAR.getEstadoMaquina();
-        estadoConsole = EnumEstadoConsole.EXCLUIR.getEstadoMaquina();
-        estadoConsole = EnumEstadoConsole.LEITURA.getEstadoMaquina();
-        estadoConsole = EnumEstadoConsole.LISTAR.getEstadoMaquina();
+    public static void main(String[] args) throws ParseException {
         estadoConsole = EnumEstadoConsole.MENU_PRINCIPAL.getEstadoMaquina();
-        Boolean saida = false;
-        while (!saida) {
-            saida = estadoConsole.Executa();
+        Boolean exit = false;
+        while (!exit) {
+            exit = estadoConsole.Executa();
         }
     }
 }

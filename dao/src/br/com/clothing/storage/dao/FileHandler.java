@@ -3,6 +3,7 @@ package br.com.clothing.storage.dao;
 import br.com.clothing.storage.comuns.enums.ColorEnum;
 import br.com.clothing.storage.comuns.enums.SizeEnum;
 import br.com.clothing.storage.comuns.vos.StorageItem;
+import br.com.clothing.storage.dao.StorageItemDAO;
 
 import java.io.*;
 import java.lang.reflect.Array;
@@ -12,6 +13,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class FileHandler {
+    private static StorageItemDAO storageItemDAO;
+
     public static ArrayList<StorageItem> reader() throws IOException {
         File archive = new File(System.getProperty("user.dir") + "/" + "dados.txt");
         ArrayList<StorageItem> items = new ArrayList<>();
@@ -26,51 +29,30 @@ public class FileHandler {
                 } else
                     break;
                 line = buffRead.readLine();
-                items.add(buildStorageItem(line));
+                items.add(storageItemDAO.build(line));
             }
+            storageItemDAO.set(items);
             buffRead.close();
         }
         else{
             boolean statusArchive = archive.createNewFile();
+            storageItemDAO.set(new ArrayList<StorageItem>());
             System.out.print(statusArchive);
         }
         return items;
     }
 
-    public static void escritor(String path) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
-        String linha = "";
-        Scanner in = new Scanner(System.in);
-        System.out.println("Escreva algo: ");
-        linha = in.nextLine();
-        buffWrite.append(linha + "\n");
+    public static void writer() throws IOException {
+        File archive = new File(System.getProperty("user.dir") + "/" + "dados.txt");
+
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(archive));
+        ArrayList<StorageItem> storageItems = storageItemDAO.list();
+        System.out.println("Salvando ...");
+
+        for (int x = 0; x <= storageItems.size(); x++){
+
+        }
+        //buffWrite.write(linha + "\n");
         buffWrite.close();
-    }
-
-    public static StorageItem buildStorageItem(String lineRead){
-        try{
-            String array[] = lineRead.split("|");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-            Integer id = Integer.parseInt(array[0]);
-            Date enterDate = dateFormat.parse(array[1]);
-            String purchaseLocation = array[2];
-            String type = array[3];
-            String brand = array[4];
-            String description = array[5];
-            SizeEnum size = SizeEnum.valueOf(array[6].toUpperCase());
-            ColorEnum color = ColorEnum.valueOf(array[7].toUpperCase());
-            Double priceTag = Double.parseDouble(array[8]);
-            Double paidPrice = Double.parseDouble(array[9]);
-            Double profitPrice = Double.parseDouble(array[10]);
-            Double suggestedPrice = Double.parseDouble(array[11]);
-
-            return new StorageItem(id, enterDate, purchaseLocation, type, brand, description, size, color,
-                    priceTag, paidPrice, profitPrice, suggestedPrice);
-        }
-        catch (Exception error){
-            System.out.println("Opa alguma informação no arquivo está incoerente");
-            return null;
-        }
     }
 }
