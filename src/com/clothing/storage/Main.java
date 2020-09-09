@@ -1,11 +1,13 @@
 package com.clothing.storage;
 
-import com.clothing.storage.comuns.Usuario;
+import br.com.clothing.storage.dao.FileHandler;
+
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("hello");
-        Usuario usuario = new Usuario();
+        FileHandler.reader();
     }
 }

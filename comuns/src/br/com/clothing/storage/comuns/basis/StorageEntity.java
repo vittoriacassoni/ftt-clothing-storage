@@ -1,7 +1,7 @@
 package br.com.clothing.storage.comuns.basis;
 
 import br.com.clothing.storage.comuns.enums.AvailableEntities;
-import br.com.clothing.storage.comuns.vos.storageItems;
+import br.com.clothing.storage.comuns.vos.StorageItem;
 
 public class StorageEntity {
 
@@ -10,7 +10,7 @@ public class StorageEntity {
         switch (enumEntity)
         {
             case STORAGE:
-                retorno = new storageItems();
+                retorno = new StorageItem();
                 break;
             default:
                 retorno = new Entity();
