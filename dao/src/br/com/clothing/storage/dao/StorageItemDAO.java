@@ -9,22 +9,23 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class StorageItemDAO {
+
     private ArrayList<StorageItem> storageItems;
 
-    public StorageItemDAO(){
+    public StorageItemDAO() {
 
     }
 
-    public ArrayList<StorageItem> list(){
+    public ArrayList<StorageItem> list() {
         return this.storageItems;
     }
 
-    public void set(ArrayList<StorageItem> items){
+    public void set(ArrayList<StorageItem> items) {
         this.storageItems = items;
     }
 
-    public StorageItem build(String lineRead){
-        try{
+    public StorageItem build(String lineRead) {
+        try {
             String array[] = lineRead.split("|");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -43,18 +44,32 @@ public class StorageItemDAO {
 
             return new StorageItem(id, enterDate, purchaseLocation, type, brand, description, size, color,
                     priceTag, paidPrice, profitPrice, suggestedPrice);
-        }
-        catch (Exception error){
+        } catch (Exception error) {
             System.out.println("Opa alguma informação no arquivo está incoerente");
             return null;
         }
     }
 
-    public void stringfy(ArrayList<StorageItem> items){
+    public void stringfy(ArrayList<StorageItem> items) {
         this.storageItems = items;
     }
 
-    public void add(StorageItem item){
+    public void add(StorageItem item) {
         this.storageItems.add(item);
+    }
+
+    public int getRecordById(Integer id) {
+
+        for (int i = 0; i < storageItems.size(); i++) {
+            StorageItem item = storageItems.get(i);
+            if (item.getId() == id) {
+                return i;
+            }
+        }
+        return 0;
+    }
+    public void edit(Integer index, Double newSuggestedPrice){
+        StorageItem item = storageItems.get(index);
+        item.setSuggestedPrice(newSuggestedPrice);
     }
 }
