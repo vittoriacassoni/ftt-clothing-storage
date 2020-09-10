@@ -7,12 +7,12 @@ import br.com.clothing.storage.comuns.vos.StorageItem;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class StorageItemDAO {
-    private ArrayList<StorageItem> storageItems;
+    private static ArrayList<StorageItem> storageItems = new ArrayList<>();
 
     public StorageItemDAO(){
-        storageItems = new ArrayList<>();
     }
 
     public ArrayList<StorageItem> list(){
@@ -25,7 +25,7 @@ public class StorageItemDAO {
 
     public StorageItem build(String lineRead){
         try{
-            String array[] = lineRead.split("|");
+            String[] array = lineRead.split(Pattern.quote("|"));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
             Integer id = Integer.parseInt(array[0]);
@@ -52,9 +52,10 @@ public class StorageItemDAO {
 
     public String stringfy(StorageItem item){
         String itemStringfy = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         itemStringfy += item.getId() + "|";
-        itemStringfy += item.getEnterDate() + "|";
+        itemStringfy += dateFormat.format(item.getEnterDate())+ "|";
         itemStringfy += item.getPurchaseLocation() + "|";
         itemStringfy += item.getType() + "|";
         itemStringfy += item.getBrand() + "|";
@@ -64,7 +65,7 @@ public class StorageItemDAO {
         itemStringfy += item.getPriceTag() + "|";
         itemStringfy += item.getPaidPrice() + "|";
         itemStringfy += item.getProfitPrice() + "|";
-        itemStringfy += item.getSuggestedPrice() + "|";
+        itemStringfy += item.getSuggestedPrice();
 
         return itemStringfy;
     }
@@ -73,11 +74,12 @@ public class StorageItemDAO {
         this.storageItems.add(item);
     }
 
-    public void print(StorageItem item){
+    public String print(StorageItem item){
         String itemStringfy = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         itemStringfy += "Id: " + item.getId() + "|";
-        itemStringfy += "Data: " + item.getEnterDate() + "|";
+        itemStringfy += "Data: " + dateFormat.format(item.getEnterDate()) + "|";
         itemStringfy += "Local: " + item.getPurchaseLocation() + "|";
         itemStringfy += "Tipo: " + item.getType() + "|";
         itemStringfy += "Marca: " + item.getBrand() + "|";
@@ -87,8 +89,8 @@ public class StorageItemDAO {
         itemStringfy += "Preço de etiqueta: " + item.getPriceTag() + "|";
         itemStringfy += "Preço pago: " + item.getPaidPrice() + "|";
         itemStringfy += "Preço com lucro: " + item.getProfitPrice() + "|";
-        itemStringfy += "Preço sugerido: " + item.getSuggestedPrice() + "|";
+        itemStringfy += "Preço sugerido: " + item.getSuggestedPrice();
 
-        System.out.println(itemStringfy);
+        return itemStringfy;
     }
 }

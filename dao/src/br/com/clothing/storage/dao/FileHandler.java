@@ -17,21 +17,19 @@ public class FileHandler {
 
     public void reader() throws IOException {
         File archive = new File(System.getProperty("user.dir") + "/" + "dados.txt");
-        ArrayList<StorageItem> items = new ArrayList<>();
 
         if(archive.exists()){
             BufferedReader buffRead = new BufferedReader(new FileReader(archive));
-            String line = "";
+            String line = buffRead.readLine();
 
             while (true) {
                 if (line != null) {
-                    // first line is empty
+                    StorageItem item = storageItemDAO.build(line);
+                    storageItemDAO.add(item);
                 } else
                     break;
                 line = buffRead.readLine();
-                items.add(storageItemDAO.build(line));
             }
-            storageItemDAO.set(items);
             buffRead.close();
         }
         else{
@@ -48,8 +46,8 @@ public class FileHandler {
         System.out.println("Salvando ...");
         buffWrite.write("");
 
-        for (int x = 0; x <= storageItems.size(); x++){
-            buffWrite.append(storageItemDAO.stringfy(storageItems.get(x)));
+        for (int x = 0; x < storageItems.size(); x++){
+            buffWrite.append(storageItemDAO.stringfy(storageItems.get(x)) + "\n");
         }
 
         buffWrite.close();
