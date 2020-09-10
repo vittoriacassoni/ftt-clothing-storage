@@ -10,16 +10,17 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class StorageItemDAO {
+
     private static ArrayList<StorageItem> storageItems = new ArrayList<>();
 
     public StorageItemDAO(){
     }
 
-    public ArrayList<StorageItem> list(){
+    public ArrayList<StorageItem> list() {
         return this.storageItems;
     }
 
-    public void set(ArrayList<StorageItem> items){
+    public void set(ArrayList<StorageItem> items) {
         this.storageItems = items;
     }
 
@@ -33,7 +34,7 @@ public class StorageItemDAO {
             String purchaseLocation = array[2];
             String type = array[3];
             String brand = array[4];
-            String description = array[5];
+            String description = array[30];
             SizeEnum size = SizeEnum.valueOf(array[6].toUpperCase());
             ColorEnum color = ColorEnum.valueOf(array[7].toUpperCase());
             Double priceTag = Double.parseDouble(array[8]);
@@ -43,8 +44,7 @@ public class StorageItemDAO {
 
             return new StorageItem(id, enterDate, purchaseLocation, type, brand, description, size, color,
                     priceTag, paidPrice, profitPrice, suggestedPrice);
-        }
-        catch (Exception error){
+        } catch (Exception error) {
             System.out.println("Opa alguma informação no arquivo está incoerente");
             return null;
         }
@@ -68,10 +68,27 @@ public class StorageItemDAO {
         itemStringfy += item.getSuggestedPrice();
 
         return itemStringfy;
+
     }
 
-    public void add(StorageItem item){
+    public void add(StorageItem item) {
         this.storageItems.add(item);
+    }
+
+    public int getRecordById(Integer id) {
+
+        for (int i = 0; i <= storageItems.size(); i++) {
+            StorageItem item = storageItems.get(i);
+            if (item.getId() == id) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public void edit(Integer index, Double newSuggestedPrice) {
+        StorageItem item = storageItems.get(index);
+        item.setSuggestedPrice(newSuggestedPrice);
     }
 
     public String print(StorageItem item){

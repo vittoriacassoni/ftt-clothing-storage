@@ -27,16 +27,20 @@ public class EstadoConsoleCadastrar extends MaquinaEstadoConsole {
         Date enterDate = dateFormat.parse(scanner.next());
 
         System.out.println("Local da compra: ");
-        String purchaseLocation = scanner.next();
+        scanner.nextLine();
+        String purchaseLocation = scanner.nextLine();
 
         System.out.println("Tipo: ");
-        String type = scanner.next();
+        scanner.nextLine();
+        String type = scanner.nextLine();
 
         System.out.println("Marca: ");
-        String brand = scanner.next();
+        scanner.nextLine();
+        String brand = scanner.nextLine();
 
         System.out.println("Descrição: ");
-        String description = scanner.next();
+        scanner.nextLine();
+        String description = scanner.nextLine();
 
         System.out.println("Tamanho (P, M ou G): ");
         String sizeString =  scanner.next();

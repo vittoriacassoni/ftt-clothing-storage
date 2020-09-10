@@ -15,7 +15,7 @@ public class EstadoConsoleListar extends MaquinaEstadoConsole {
 
         for(int x = 0; x < items.size(); x++){
             String item = storageItemDAO.print(items.get(x));
-            System.out.println(storageItemDAO.print(items.get(x)));
+            System.out.println(item);
         }
         Main.estadoConsole = EnumEstadoConsole.MENU_PRINCIPAL.getEstadoMaquina();
 
