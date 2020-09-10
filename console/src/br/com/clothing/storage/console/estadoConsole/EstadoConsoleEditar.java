@@ -15,7 +15,6 @@ public class EstadoConsoleEditar extends MaquinaEstadoConsole {
 
             System.out.println("Digite o código da mercadoria: ");
             Integer id = scanner.nextInt();
-
             StorageItemDAO storageItemDAO = new StorageItemDAO();
             Integer indexOfStorageItem = storageItemDAO.getRecordById(id);
             if (storageItemDAO.getRecordById(id) != 0) {
