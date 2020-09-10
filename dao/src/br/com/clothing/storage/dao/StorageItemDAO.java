@@ -7,25 +7,26 @@ import br.com.clothing.storage.comuns.vos.StorageItem;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class StorageItemDAO {
-    private ArrayList<StorageItem> storageItems;
+
+    private static ArrayList<StorageItem> storageItems = new ArrayList<>();
 
     public StorageItemDAO(){
-
     }
 
-    public ArrayList<StorageItem> list(){
+    public ArrayList<StorageItem> list() {
         return this.storageItems;
     }
 
-    public void set(ArrayList<StorageItem> items){
+    public void set(ArrayList<StorageItem> items) {
         this.storageItems = items;
     }
 
     public StorageItem build(String lineRead){
         try{
-            String array[] = lineRead.split("|");
+            String[] array = lineRead.split(Pattern.quote("|"));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
             Integer id = Integer.parseInt(array[0]);
@@ -43,18 +44,80 @@ public class StorageItemDAO {
 
             return new StorageItem(id, enterDate, purchaseLocation, type, brand, description, size, color,
                     priceTag, paidPrice, profitPrice, suggestedPrice);
-        }
-        catch (Exception error){
+        } catch (Exception error) {
             System.out.println("Opa alguma informação no arquivo está incoerente");
             return null;
         }
     }
 
-    public void stringfy(ArrayList<StorageItem> items){
-        this.storageItems = items;
+    public String stringfy(StorageItem item){
+        String itemStringfy = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        itemStringfy += item.getId() + "|";
+        itemStringfy += dateFormat.format(item.getEnterDate())+ "|";
+        itemStringfy += item.getPurchaseLocation() + "|";
+        itemStringfy += item.getType() + "|";
+        itemStringfy += item.getBrand() + "|";
+        itemStringfy += item.getDescription() + "|";
+        itemStringfy += item.getSize().toString() + "|";
+        itemStringfy += item.getColor().toString() + "|";
+        itemStringfy += item.getPriceTag() + "|";
+        itemStringfy += item.getPaidPrice() + "|";
+        itemStringfy += item.getProfitPrice() + "|";
+        itemStringfy += item.getSuggestedPrice();
+
+        return itemStringfy;
+
     }
 
-    public void add(StorageItem item){
+    public void add(StorageItem item) {
         this.storageItems.add(item);
+    }
+
+    public int getRecordById(Integer id) {
+
+        for (int i = 0; i < storageItems.size(); i++) {
+            StorageItem item = storageItems.get(i);
+            if (item.getId() == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void edit(Integer index, Double newSuggestedPrice) {
+        storageItems.get(index).setSuggestedPrice(newSuggestedPrice);
+    }
+
+    public String print(StorageItem item){
+        String itemStringfy = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        itemStringfy += "Id: " + item.getId() + "|";
+        itemStringfy += "Data: " + dateFormat.format(item.getEnterDate()) + "|";
+        itemStringfy += "Local: " + item.getPurchaseLocation() + "|";
+        itemStringfy += "Tipo: " + item.getType() + "|";
+        itemStringfy += "Marca: " + item.getBrand() + "|";
+        itemStringfy += "Descrição: " + item.getDescription() + "|";
+        itemStringfy += "Tamanho: " + item.getSize().getDescricao() + "|";
+        itemStringfy += "Cor: " + item.getColor().getDescricao() + "|";
+        itemStringfy += "Preço de etiqueta: " + item.getPriceTag() + "|";
+        itemStringfy += "Preço pago: " + item.getPaidPrice() + "|";
+        itemStringfy += "Preço com lucro: " + item.getProfitPrice() + "|";
+        itemStringfy += "Preço sugerido: " + item.getSuggestedPrice();
+
+        return itemStringfy;
+    }
+
+    public Boolean delete(Integer id){
+        for (int i = 0; i < storageItems.size(); i++) {
+            StorageItem item = storageItems.get(i);
+            if (item.getId() == id) {
+                storageItems.remove(item);
+                return true;
+            }
+        }
+        return false;
     }
 }

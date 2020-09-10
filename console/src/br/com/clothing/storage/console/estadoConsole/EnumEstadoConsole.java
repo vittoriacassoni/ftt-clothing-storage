@@ -13,7 +13,7 @@ public enum EnumEstadoConsole {
 
     LISTAR (new EstadoConsoleListar()),
 
-    SALVAR (new EstadoConsoleListar());
+    SALVAR (new EstadoConsoleSalvar());
 
     private final MaquinaEstadoConsole estadoMaquina;
 

@@ -20,3 +20,7 @@ Entendido o problema acima, construa uma aplicação em Java que resolva o probl
 •A camada de negócio deve possuir interfaces corretamente expostas e documentadas para serem utilizadas futuramente no acesso de uma outra interface gráfica.
 •A camada de interface console.
 •Uso de enumeradores Type-Safe para Tamanho e Cor das peças.
+
+Ambiente de desenvolvimento: IntelliJ, branch "dev" 
+Versão do JDK: 14.0.2
+Documentações associadas: nenhuma
