@@ -12,10 +12,14 @@ public class EstadoConsoleListar extends MaquinaEstadoConsole {
         System.out.println("Listar");
         StorageItemDAO storageItemDAO = new StorageItemDAO();
         ArrayList<StorageItem> items = storageItemDAO.list();
-
-        for(int x = 0; x < items.size(); x++){
-            String item = storageItemDAO.print(items.get(x));
-            System.out.println(item);
+        if(items.size() > 0){
+            for(int x = 0; x < items.size(); x++){
+                String item = storageItemDAO.print(items.get(x));
+                System.out.println(item);
+            }
+        }
+        else{
+            System.out.println("Não foram encontrados registros!");
         }
         Main.estadoConsole = EnumEstadoConsole.MENU_PRINCIPAL.getEstadoMaquina();
 

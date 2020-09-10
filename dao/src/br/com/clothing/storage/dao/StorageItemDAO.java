@@ -34,7 +34,7 @@ public class StorageItemDAO {
             String purchaseLocation = array[2];
             String type = array[3];
             String brand = array[4];
-            String description = array[30];
+            String description = array[5];
             SizeEnum size = SizeEnum.valueOf(array[6].toUpperCase());
             ColorEnum color = ColorEnum.valueOf(array[7].toUpperCase());
             Double priceTag = Double.parseDouble(array[8]);
@@ -77,18 +77,17 @@ public class StorageItemDAO {
 
     public int getRecordById(Integer id) {
 
-        for (int i = 0; i <= storageItems.size(); i++) {
+        for (int i = 0; i < storageItems.size(); i++) {
             StorageItem item = storageItems.get(i);
             if (item.getId() == id) {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 
     public void edit(Integer index, Double newSuggestedPrice) {
-        StorageItem item = storageItems.get(index);
-        item.setSuggestedPrice(newSuggestedPrice);
+        storageItems.get(index).setSuggestedPrice(newSuggestedPrice);
     }
 
     public String print(StorageItem item){
@@ -109,5 +108,16 @@ public class StorageItemDAO {
         itemStringfy += "Preço sugerido: " + item.getSuggestedPrice();
 
         return itemStringfy;
+    }
+
+    public Boolean delete(Integer id){
+        for (int i = 0; i < storageItems.size(); i++) {
+            StorageItem item = storageItems.get(i);
+            if (item.getId() == id) {
+                storageItems.remove(item);
+                return true;
+            }
+        }
+        return false;
     }
 }

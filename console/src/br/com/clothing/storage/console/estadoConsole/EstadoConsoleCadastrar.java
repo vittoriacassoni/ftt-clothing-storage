@@ -31,15 +31,12 @@ public class EstadoConsoleCadastrar extends MaquinaEstadoConsole {
         String purchaseLocation = scanner.nextLine();
 
         System.out.println("Tipo: ");
-        scanner.nextLine();
         String type = scanner.nextLine();
 
         System.out.println("Marca: ");
-        scanner.nextLine();
         String brand = scanner.nextLine();
 
         System.out.println("Descrição: ");
-        scanner.nextLine();
         String description = scanner.nextLine();
 
         System.out.println("Tamanho (P, M ou G): ");

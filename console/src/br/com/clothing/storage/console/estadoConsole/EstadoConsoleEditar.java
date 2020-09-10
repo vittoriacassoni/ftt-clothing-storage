@@ -15,9 +15,11 @@ public class EstadoConsoleEditar extends MaquinaEstadoConsole {
 
             System.out.println("Digite o código da mercadoria: ");
             Integer id = scanner.nextInt();
+
             StorageItemDAO storageItemDAO = new StorageItemDAO();
             Integer indexOfStorageItem = storageItemDAO.getRecordById(id);
-            if (storageItemDAO.getRecordById(id) != 0) {
+
+            if (indexOfStorageItem != -1) {
                 System.out.println(("Digite o novo preço sugerido: "));
                 Double newSugestedPrice = scanner.nextDouble();
                 storageItemDAO.edit(indexOfStorageItem, newSugestedPrice);
