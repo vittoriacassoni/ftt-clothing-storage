@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="comuns" />
     <orderEntry type="module" module-name="dao" />
+    <orderEntry type="module" module-name="business" />
   </component>
 </module>
