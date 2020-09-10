@@ -13,9 +13,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class FileHandler {
-    private static StorageItemDAO storageItemDAO;
+    private StorageItemDAO storageItemDAO = new StorageItemDAO();
 
-    public static ArrayList<StorageItem> reader() throws IOException {
+    public void reader() throws IOException {
         File archive = new File(System.getProperty("user.dir") + "/" + "dados.txt");
         ArrayList<StorageItem> items = new ArrayList<>();
 
@@ -36,23 +36,22 @@ public class FileHandler {
         }
         else{
             boolean statusArchive = archive.createNewFile();
-            storageItemDAO.set(new ArrayList<StorageItem>());
             System.out.print(statusArchive);
         }
-        return items;
     }
 
-    public static void writer() throws IOException {
+    public void writer() throws IOException {
         File archive = new File(System.getProperty("user.dir") + "/" + "dados.txt");
 
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(archive));
         ArrayList<StorageItem> storageItems = storageItemDAO.list();
         System.out.println("Salvando ...");
+        buffWrite.write("");
 
         for (int x = 0; x <= storageItems.size(); x++){
-
+            buffWrite.append(storageItemDAO.stringfy(storageItems.get(x)));
         }
-        //buffWrite.write(linha + "\n");
+
         buffWrite.close();
     }
 }

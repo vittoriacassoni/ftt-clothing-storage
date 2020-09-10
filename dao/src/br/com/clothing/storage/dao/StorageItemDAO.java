@@ -12,7 +12,7 @@ public class StorageItemDAO {
     private ArrayList<StorageItem> storageItems;
 
     public StorageItemDAO(){
-
+        storageItems = new ArrayList<>();
     }
 
     public ArrayList<StorageItem> list(){
@@ -50,11 +50,45 @@ public class StorageItemDAO {
         }
     }
 
-    public void stringfy(ArrayList<StorageItem> items){
-        this.storageItems = items;
+    public String stringfy(StorageItem item){
+        String itemStringfy = "";
+
+        itemStringfy += item.getId() + "|";
+        itemStringfy += item.getEnterDate() + "|";
+        itemStringfy += item.getPurchaseLocation() + "|";
+        itemStringfy += item.getType() + "|";
+        itemStringfy += item.getBrand() + "|";
+        itemStringfy += item.getDescription() + "|";
+        itemStringfy += item.getSize().toString() + "|";
+        itemStringfy += item.getColor().toString() + "|";
+        itemStringfy += item.getPriceTag() + "|";
+        itemStringfy += item.getPaidPrice() + "|";
+        itemStringfy += item.getProfitPrice() + "|";
+        itemStringfy += item.getSuggestedPrice() + "|";
+
+        return itemStringfy;
     }
 
     public void add(StorageItem item){
         this.storageItems.add(item);
+    }
+
+    public void print(StorageItem item){
+        String itemStringfy = "";
+
+        itemStringfy += "Id: " + item.getId() + "|";
+        itemStringfy += "Data: " + item.getEnterDate() + "|";
+        itemStringfy += "Local: " + item.getPurchaseLocation() + "|";
+        itemStringfy += "Tipo: " + item.getType() + "|";
+        itemStringfy += "Marca: " + item.getBrand() + "|";
+        itemStringfy += "Descrição: " + item.getDescription() + "|";
+        itemStringfy += "Tamanho: " + item.getSize().getDescricao() + "|";
+        itemStringfy += "Cor: " + item.getColor().getDescricao() + "|";
+        itemStringfy += "Preço de etiqueta: " + item.getPriceTag() + "|";
+        itemStringfy += "Preço pago: " + item.getPaidPrice() + "|";
+        itemStringfy += "Preço com lucro: " + item.getProfitPrice() + "|";
+        itemStringfy += "Preço sugerido: " + item.getSuggestedPrice() + "|";
+
+        System.out.println(itemStringfy);
     }
 }

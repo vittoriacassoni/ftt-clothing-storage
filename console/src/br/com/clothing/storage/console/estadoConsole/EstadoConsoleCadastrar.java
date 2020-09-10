@@ -1,6 +1,7 @@
 package br.com.clothing.storage.console.estadoConsole;
 import br.com.clothing.storage.comuns.enums.ColorEnum;
 import br.com.clothing.storage.comuns.enums.SizeEnum;
+import br.com.clothing.storage.comuns.vos.StorageItem;
 import br.com.clothing.storage.console.Main;
 import br.com.clothing.storage.dao.StorageItemDAO;
 
@@ -38,10 +39,12 @@ public class EstadoConsoleCadastrar extends MaquinaEstadoConsole {
         String description = scanner.next();
 
         System.out.println("Tamanho (P, M ou G): ");
-        SizeEnum size = SizeEnum.valueOf(scanner.next().toUpperCase());
+        String sizeString =  scanner.next();
+        SizeEnum size = SizeEnum.valueOf(sizeString.toUpperCase());
 
         System.out.println("Cor (Rosa, Azul, Branco ou Preto): ");
-        ColorEnum color = ColorEnum.valueOf(scanner.next().toUpperCase());
+        String colorString = scanner.next();
+        ColorEnum color = ColorEnum.valueOf(colorString.toUpperCase());
 
         System.out.println("Preço da etiqueta: ");
         Double priceTag = scanner.nextDouble();
@@ -55,7 +58,12 @@ public class EstadoConsoleCadastrar extends MaquinaEstadoConsole {
         Double suggestedPrice = scanner.nextDouble();
 
         StorageItemDAO storageItemDAO = new StorageItemDAO();
+        StorageItem item = new StorageItem(id, enterDate, purchaseLocation, type, brand, description, size,
+                color, priceTag, paidPrice, profitPrice, suggestedPrice);
 
+
+        storageItemDAO.add(item);
+        System.out.println("Item cadastrado com sucesso!");
 
         Main.estadoConsole = EnumEstadoConsole.MENU_PRINCIPAL.getEstadoMaquina();
 
@@ -63,7 +71,9 @@ public class EstadoConsoleCadastrar extends MaquinaEstadoConsole {
     }
     catch (Exception error){
         System.out.println("Ocorreu um erro, reinicie e tente novamente");
+        System.out.println(error);
         return true;
+
     }
 
     }
